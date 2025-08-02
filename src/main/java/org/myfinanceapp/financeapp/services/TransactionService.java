@@ -4,6 +4,7 @@ import org.myfinanceapp.financeapp.models.Transaction;
 import org.myfinanceapp.financeapp.repos.TransactionRepo;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -48,4 +49,41 @@ public class TransactionService {
             throw new RuntimeException("Transaction not found with id: " + transaction.getId());
         }
     }
+
+    public void deleteTransaction(Long id) {
+        if (transactionRepo.findTransactionById(id).isEmpty()) {
+            throw new RuntimeException("Transaction not found with id: " + id);
+        }
+        transactionRepo.deleteById(id);
+    }
+
+    public List<Transaction> getTransactionsByCategoryId(Long categoryId) {
+        if (transactionRepo.findAllByCategoryId(categoryId).isEmpty()) {
+            throw new RuntimeException("No transactions found for category id: " + categoryId);
+        }
+        return transactionRepo.findAllByCategoryId(categoryId);
+    }
+
+    public List<Transaction> getTransactionsByUserId(Long userId) {
+        if (transactionRepo.findAllByAccount_User_Id(userId).isEmpty()) {
+            throw new RuntimeException("No transactions found for user id: " + userId);
+        }
+        return transactionRepo.findAllByAccount_User_Id(userId);
+    }
+
+    public List<Transaction> getTransactionsByDateRange(LocalDate startDate, LocalDate endDate) {
+        if (transactionRepo.findAllByDateBetween(startDate, endDate).isEmpty()) {
+            throw new RuntimeException("No transactions found between dates: " + startDate + " and " + endDate);
+        }
+        return transactionRepo.findAllByDateBetween(startDate, endDate);
+    }
+
+    public List<Transaction> getTransactionsByAmount(Double amount) {
+        if (transactionRepo.findAllByAmount(amount).isEmpty()) {
+            throw new RuntimeException("No transactions found with amount: " + amount);
+        }
+        return transactionRepo.findAllByAmount(amount);
+    }
+
+
 }

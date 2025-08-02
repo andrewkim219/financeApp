@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Entity
 @Table
 @Data
@@ -22,7 +24,7 @@ public class Transaction {
     private Long id;
     private String description;
     private Double amount;
-    private String date;
+    private LocalDate date;
     private TransactionType type;
     @OneToOne
     @JoinColumn(name = "account_id")

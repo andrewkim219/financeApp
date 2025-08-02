@@ -14,7 +14,7 @@ public interface TransactionRepo extends JpaRepository<Transaction, Long> {
     Optional<Transaction> findTransactionById(Long id);
     List<Transaction> findAllByAccountId(Long accountId);
     List<Transaction> findAllByCategoryId(Long categoryId);
-    List<Transaction> findAllByUserId(Long userId);
+    List<Transaction> findAllByAccount_User_Id(Long userId);
     List<Transaction> findAllByDateBetween(LocalDate startDate, LocalDate endDate);
-    List<Transaction> findAllByAmountGreaterThanEqual(Double amount);
+    List<Transaction> findAllByAmount(Double amount);
 }

@@ -5,6 +5,7 @@ import org.myfinanceapp.financeapp.services.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -46,5 +47,39 @@ public class TransactionController {
         transactionService.updateTransaction(transaction);
         return ResponseEntity.ok("Transaction updated successfully.");
     }
+
+    @DeleteMapping("/{transactionId}")
+    public ResponseEntity<String> deleteTransaction(@PathVariable Long transactionId) {
+        transactionService.deleteTransaction(transactionId);
+        return ResponseEntity.ok("Transaction deleted successfully.");
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<Transaction>> getTransactionsByCategoryId(@PathVariable Long categoryId) {
+        List<Transaction> transactions = transactionService.getTransactionsByCategoryId(categoryId);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Transaction>> getTransactionsByUserId(@PathVariable Long userId) {
+        List<Transaction> transactions = transactionService.getTransactionsByUserId(userId);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/amount/{amount}")
+    public ResponseEntity<List<Transaction>> getTransactionsByAmount(@PathVariable Double amount) {
+        List<Transaction> transactions = transactionService.getTransactionsByAmount(amount);
+        return ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/date-range")
+    public ResponseEntity<List<Transaction>> getTransactionsByDateRange(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate) {
+        List<Transaction> transactions = transactionService.getTransactionsByDateRange(startDate, endDate);
+        return ResponseEntity.ok(transactions);
+    }
+
+
 
 }
