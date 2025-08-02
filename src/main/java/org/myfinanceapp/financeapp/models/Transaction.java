@@ -27,4 +27,8 @@ public class Transaction {
     @OneToOne
     @JoinColumn(name = "account_id")
     private Account account;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

@@ -35,4 +35,12 @@ public class UserService {
         }
         userRepo.deleteById(userId);
     }
+
+    public void updateUser(User user) {
+        if (userRepo.findUserById(user.getId()).isPresent()) {
+            userRepo.save(user);
+        } else {
+            throw new RuntimeException("User not found with id: " + user.getId());
+        }
+    }
 }

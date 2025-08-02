@@ -27,6 +27,12 @@ public class UserController {
         return ResponseEntity.status(201).body("User added successfully.");
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<String> updateUser(@RequestBody User user) {
+        userService.updateUser(user);
+        return ResponseEntity.ok("User updated successfully.");
+    }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
